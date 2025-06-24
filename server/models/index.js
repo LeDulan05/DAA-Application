@@ -26,17 +26,6 @@ async function initialize() {
     await sequelize.sync({ alter: false });
     console.log('✓ Models synchronized');
 
-    // Test insert using FamilyTable (not User)
-    const testFamily = await db.FamilyTable.create({
-      Name: 'Eric',
-      Address: 'Manila',
-      Contact: '123456789'
-    });
-    console.log('✓ Test family created:', testFamily.FamilyID);
-
-    // Verify the table exists in database
-
-
   } catch (error) {
     console.error('! Initialization failed:', error);
     process.exit(1); // Exit if initialization fails
