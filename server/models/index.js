@@ -16,6 +16,8 @@ db.Sequelize = Sequelize;
 
 db.FamilyTable = require('./FamilyTable')(sequelize,Sequelize.DataTypes);
 
+
+
 async function initialize() {
   try {
     // First test the connection
@@ -27,12 +29,12 @@ async function initialize() {
     console.log('✓ Models synchronized');
 
     // Test insert using FamilyTable (not User)
-    const testFamily = await db.FamilyTable.create({
-      Name: 'Eric',
-      Address: 'Manila',
-      Contact: '123456789'
-    });
-    console.log('✓ Test family created:', testFamily.FamilyID);
+    //const testFamily = await db.FamilyTable.create({
+    //  Name: 'Eric',
+    //  Address: 'Manila',
+    //  Contact: '123456789'
+    //});
+    //console.log('✓ Test family created:', testFamily.FamilyID);
 
     // Verify the table exists in database
 
