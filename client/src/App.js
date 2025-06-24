@@ -1,27 +1,22 @@
 import './App.css';
-import axios from "axios";
-import { useEffect, useState } from 'react';
+import {BrowserRouter as Router, Route, Routes, Link} from "react-router-dom";
+import FamilyList from './pages/FamilyList';
+import RegisterFamily from './pages/RegisterFamily';
 
 function App() {
-
-  const [listOfFamily, setListOfFamily] = useState([]);
-
-  useEffect(()=>{
-    axios.get("http://localhost:3001/FamilyTableRoute").then((response)=>{
-      setListOfFamily(response.data);
-    });
-  }, []);
-  return (
-    <div className="App">
-      {listOfFamily.map((value, key) =>(
-      <div className='FamilyTable'>
-        <div className='familyName'>{value.Name}</div>
-        <div className='familyAddress'>{value.Address}</div> 
-      </div>
-    ))}
-      </div>
-  );
+  return(
+  <div className="App">
+    <Router>
+      <Link to = "/RegisterFamily">Enter Family Details  </Link>
+      <Routes>
+        <Route path="/" exact Component={FamilyList} />
+        <Route path="/RegisterFamily" exact Component={RegisterFamily} />
+      </Routes>
+    </Router>
     
+  </div> 
+  )
+      
 }
 
 export default App;
