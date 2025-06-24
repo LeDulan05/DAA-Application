@@ -26,7 +26,7 @@ function RegisterFamily() {
                 <label>Family Name:</label>
                 <ErrorMessage name="Name" component="span"/>
                 <Field
-                autocomplete="off" 
+                autoComplete="off" 
                 id="inputRegisterFamily" 
                 name="Name" 
                 placeholder="Garcia"/>
@@ -34,7 +34,7 @@ function RegisterFamily() {
                 <label>Address:</label>
                 <ErrorMessage name="Address" component="span"/>
                 <Field 
-                autocomplete="off"
+                autoComplete="off"
                 id="inputRegisterFamily" 
                 name="Address" 
                 placeholder="7th Street"/>
@@ -42,7 +42,7 @@ function RegisterFamily() {
                 <label>Contact:</label>
                 <ErrorMessage name="Address" component="span"/>
                 <Field 
-                autocomplete="off"
+                autoComplete="off"
                 id="inputRegisterFamily" 
                 name="Contact" 
                 placeholder="0991234141"/>
