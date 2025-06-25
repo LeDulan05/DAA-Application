@@ -25,17 +25,17 @@ Object.keys(db).forEach((modelName) => {
 
 async function initialize() {
   try {
-    // First test the connection
+    //First test the connection
     await sequelize.authenticate();
     console.log('✓ Database connection established');
 
-    // Then sync models (only in development)
+    //Sync models
     await sequelize.sync({ alter: false });
     console.log('✓ Models synchronized');
 
   } catch (error) {
     console.error('! Initialization failed:', error);
-    process.exit(1); // Exit if initialization fails
+    process.exit(1); // Exit if error
   }
 }
 
