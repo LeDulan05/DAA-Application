@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { Outlet, NavLink } from "react-router-dom";
 import "./sideBar.css";
 import barangayLogo from '../assets/login/barangay-logo.png';
+import dashboardIcon from '../assets/side-bar/Server.png';
+import addFamilyIcon from '../assets/side-bar/Add Family.png';
+import distributeAidIcon from '../assets/side-bar/Send.png';
+import logoutIcon from '../assets/side-bar/Log out.png';
 
 const SidebarLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -36,25 +40,53 @@ const SidebarLayout = () => {
 
         <nav className="nav-links">
           <NavLink 
-            to="/home" 
+            to="/dashboard" 
             className={({ isActive }) => isActive ? "active-link" : ""}
           >
-            {sidebarOpen ? 'Dashboard' : '🏠'}
+            {sidebarOpen ? (
+              <>
+                <img src={dashboardIcon} alt="Dashboard" className="nav-icon" />
+                <span>Dashboard</span>
+              </>
+            ) : (
+              <img src={dashboardIcon} alt="Dashboard" className="nav-icon" />
+            )}
           </NavLink>
           <NavLink 
             to="/register-family" 
             className={({ isActive }) => isActive ? "active-link" : ""}
           >
-            {sidebarOpen ? 'Add Family' : '👨‍👩‍👧‍👦'}
+            {sidebarOpen ? (
+              <>
+                <img src={addFamilyIcon} alt="Add Family" className="nav-icon" />
+                <span>Add Family</span>
+              </>
+            ) : (
+              <img src={addFamilyIcon} alt="Add Family" className="nav-icon" />
+            )}
           </NavLink>
           <NavLink 
             to="/distribute-aid" 
             className={({ isActive }) => isActive ? "active-link" : ""}
           >
-            {sidebarOpen ? 'Distribute Aid' : '📦'}
+            {sidebarOpen ? (
+              <>
+                <img src={distributeAidIcon} alt="Distribute Aid" className="nav-icon" />
+                <span>Distribute Aid</span>
+              </>
+            ) : (
+              <img src={distributeAidIcon} alt="Distribute Aid" className="nav-icon" />
+            )}
           </NavLink>
           <NavLink to="/">
-            {sidebarOpen ? 'Log Out' : '🚪'}
+            {sidebarOpen ? (
+              <>
+                <img src={logoutIcon} alt="Log Out" className="nav-icon logout-icon" />
+                <span>Log Out</span>
+              </>
+            ) : (
+              <img src={logoutIcon} alt="Log Out" className="nav-icon logout-icon" />
+            )}
           </NavLink>
         </nav>
       </div>

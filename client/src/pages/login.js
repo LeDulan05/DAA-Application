@@ -19,7 +19,7 @@ function Login() {
 
     if (username === 'admin' && password === 'password') {
       localStorage.setItem('isLoggedIn', 'true');
-      navigate('/Home');
+      navigate('/dashboard');
     } else {
       alert('Invalid username or password');
     }
@@ -27,13 +27,12 @@ function Login() {
 
   return (
     <div className="loginPage">
-      {/* Background elements */}
       <img src={vector1} alt="background vector" className="v1" />
       <img src={ellipse3} alt="background ellipse" className="e3" />
       <img src={ellipse2} alt="background ellipse" className="e2" />
       <img src={ellipse1} alt="background ellipse" className="e1" />
 
-      {/* Logo */}
+      
       <img src={barangayLogo} alt="Barangay Logo" className="logo" />
 
       {/* Login Form */}
@@ -41,7 +40,7 @@ function Login() {
         <div className="inputWithIcon">
           <input
             type="text"
-            placeholder="U.SERNAME"
+            placeholder="USERNAME"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
