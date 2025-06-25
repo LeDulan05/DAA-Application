@@ -16,6 +16,8 @@ db.Sequelize = Sequelize;
 
 db.FamilyTable = require('./FamilyTable')(sequelize,Sequelize.DataTypes);
 
+
+
 async function initialize() {
   try {
     // First test the connection
