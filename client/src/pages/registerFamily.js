@@ -17,6 +17,13 @@ const RegisterFamily = () => {
     previousAidNotes: ""
   });
 
+  const employmentOptions = [
+    "Employed",
+    "Unemployed",
+    "Self-employed",
+    "Student"
+  ];
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -28,7 +35,6 @@ const RegisterFamily = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
-    // Here you would typically send the data to your backend
     alert("Family registration submitted (console logged for now)");
   };
 
@@ -61,13 +67,13 @@ const RegisterFamily = () => {
           <h2>Family Demographics</h2>
           <div className="form-row">
             <div className="form-group">
-              <label>Family Name</label>
+              <label>Family Representative's Name</label>
               <input
                 type="text"
                 name="familyName"
                 value={formData.familyName}
                 onChange={handleChange}
-                placeholder="e.g., Dela Cruz"
+                placeholder="e.g., Juan Dela Cruz"
                 required
               />
             </div>
@@ -83,25 +89,27 @@ const RegisterFamily = () => {
               />
             </div>
           </div>
-          <div className="form-group">
-            <label>Email Address (Optional)</label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="email@example.com"
-            />
-          </div>
-          <div className="form-group">
-            <label>Address</label>
-            <input
-              type="text"
-              name="address"
-              value={formData.address}
-              onChange={handleChange}
-              placeholder="123 Avenue"
-            />
+          <div className="form-row">
+            <div className="form-group">
+              <label>Email Address (Optional)</label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="email@example.com"
+              />
+            </div>
+            <div className="form-group">
+              <label>Address</label>
+              <input
+                type="text"
+                name="address"
+                value={formData.address}
+                onChange={handleChange}
+                placeholder="123 Avenue"
+              />
+            </div>
           </div>
         </div>
 
@@ -175,6 +183,20 @@ const RegisterFamily = () => {
           <h2>Financial Information</h2>
           <div className="form-row">
             <div className="form-group">
+              <label>Employment Status</label>
+              <select
+                name="employmentStatus"
+                value={formData.employmentStatus}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Select status</option>
+                {employmentOptions.map(option => (
+                  <option key={option} value={option}>{option}</option>
+                ))}
+              </select>
+            </div>
+            <div className="form-group">
               <label>Monthly Household Income</label>
               <input
                 type="text"
@@ -182,17 +204,6 @@ const RegisterFamily = () => {
                 value={formData.monthlyIncome}
                 onChange={handleChange}
                 placeholder="Enter amount"
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label>Employment Status</label>
-              <input
-                type="text"
-                name="employmentStatus"
-                value={formData.employmentStatus}
-                onChange={handleChange}
-                placeholder="e.g., Employed, Unemployed, etc."
                 required
               />
             </div>
