@@ -1,10 +1,37 @@
-import React from 'react'
+import React,{useState} from 'react'
 import {Formik, Form, Field, ErrorMessage} from "formik";
 import * as Yup from 'yup'
 import axios from "axios";
 
 
-function RegisterFamily() {
+function RegistrationPage() {
+    const [familyId, setFamilyId] = useState(null);
+    const [familyRegistered, setFamilyRegistered] = useState(false);
+
+    return (
+        <div className='RegistrationPage'>
+            <h1>Family Registration</h1>
+            <RegisterFamily 
+                onFamilyRegistered={(id) => {
+                    setFamilyId(id);
+                    setFamilyRegistered(true);
+                }} 
+            />
+            
+            {familyRegistered && (
+                <>
+                    <hr />
+                    <h2>Household Composition</h2>
+                    <p>Registering for Family ID: {familyId}</p>
+                    <RegisterHouseComp familyId={familyId} />
+                </>
+            )}
+        </div>
+    )
+}
+
+
+function RegisterFamily({onFamilyRegistered}) {
     const intialValues ={
         Name:"",
         Address:"",
@@ -26,6 +53,11 @@ function RegisterFamily() {
     const onSubmit = (data) => {
         axios.post("http://localhost:3001/FamilyTableRoute", data).then((response)=>{
       console.log("IT WORKED")
+
+      const createdFamily = response.data;
+            if (createdFamily && createdFamily.FamilyID) {
+                onFamilyRegistered(createdFamily.FamilyID);
+            }
     });
     }
   return (
@@ -36,7 +68,7 @@ function RegisterFamily() {
                 <ErrorMessage name="Name" component="span"/>
                 <Field
                 autoComplete="off" 
-                id="inputRegisterFamily" 
+                id="inputRegisterFamily1" 
                 name="Name" 
                 placeholder="Garcia"/>
 
@@ -44,7 +76,7 @@ function RegisterFamily() {
                 <ErrorMessage name="Address" component="span"/>
                 <Field 
                 autoComplete="off"
-                id="inputRegisterFamily" 
+                id="inputRegisterFamily2" 
                 name="Address" 
                 placeholder="7th Street"/>
 
@@ -52,7 +84,7 @@ function RegisterFamily() {
                 <ErrorMessage name="Contact" component="span"/>
                 <Field 
                 autoComplete="off"
-                id="inputRegisterFamily" 
+                id="inputRegisterFamily3" 
                 name="Contact" 
                 placeholder="0991234141"/>
 
@@ -60,8 +92,8 @@ function RegisterFamily() {
                 <ErrorMessage name="Address" component="span"/>
                 <Field 
                 autoComplete="off"
-                id="inputRegisterFamily" 
-                name="Email" 
+                id="inputRegisterFamily4" 
+                name="Email"    
                 placeholder="Dulan@Gmail.com"/>
 
                 <div className="confirmation-checkbox">
@@ -82,4 +114,66 @@ function RegisterFamily() {
   )
 }
 
-export default RegisterFamily
+function RegisterHouseComp({familyId}){
+    const InitialValues ={
+        FamilyID: familyId || '',
+        NumChildren:'',
+        NumSeniors:'',
+        NumPWD:'',
+    }
+    const validationSchema = Yup.object().shape({
+       NumChildren: Yup.number().integer(),
+        NumSeniors: Yup.number().integer(),
+        NumPWD: Yup.number().integer(),
+    })
+
+    const onSubmit = (data) => {
+
+         const submissionData = {
+            ...data,
+            FamilyID: familyId
+        };
+
+        axios.post("http://localhost:3001/HouseCompRoute", submissionData).then((response)=>{
+      console.log("HouseCOMP WORKED")
+    });
+    }
+
+    return (
+    <div className='RegisterHouseComp'> 
+        <Formik initialValues={InitialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
+            <Form>
+                <label>Input Number of Children:</label>
+                <ErrorMessage name="Input Number of Children" component="span"/>
+                <Field 
+                autoComplete="off"
+                id="inputRegisterHouseComp1" 
+                name="NumChildren" 
+                placeholder="0991234141"/>
+
+                <label>Input Number of Senior Citizens:</label>
+                <ErrorMessage name="Input Number of Senior Citizens" component="span"/>
+                <Field 
+                autoComplete="off"
+                id="inputRegisterHouseComp2" 
+                name="NumSeniors" 
+                placeholder="0991234141"/>
+
+                <label>Input Number of Person with Disability:</label>
+                <ErrorMessage name="Input Number of PWD's" component="span"/>
+                <Field 
+                autoComplete="off"
+                id="inputRegisterHouseComp3" 
+                name="NumPWD" 
+                placeholder="0991234141"/>
+
+                <button type = "submit">Register House Composition</button>
+            </Form>
+        </Formik>
+    </div>
+  )
+}
+
+
+export default RegistrationPage;
+

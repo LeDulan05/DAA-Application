@@ -11,10 +11,10 @@
  }); 
 
 
- router.get("/", async(req,res) =>{
+ router.post("/", async(req,res) =>{
      const housecomp = req.body;
-     await HouseComp.create(housecomp);
-     res.json(housecomp);
+     const createdHouseComp = await HouseComp.create(housecomp);
+     res.json(createdHouseComp);
     });
      
  module.exports = router
