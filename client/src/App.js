@@ -8,6 +8,7 @@ function App() {
   <div className="App">
     <Router>
       <Link to = "/RegisterFamily">Enter Family Details  </Link>
+      <Link to = "/">Home Page  </Link>
       <Routes>
         <Route path="/" exact Component={FamilyList} />
         <Route path="/RegisterFamily" exact Component={RegisterFamily} />

@@ -19,6 +19,15 @@ module.exports = (sequelize, DataTypes) => {
 
         Contact: {
             type: DataTypes.STRING,
+        },
+
+        Email:{
+            type: DataTypes.STRING,
+        },
+
+        RepresentativeConfirmation: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
         }
 
     },
@@ -27,6 +36,15 @@ module.exports = (sequelize, DataTypes) => {
         tableName: "FamilyTable"
     },
     );
+
+    FamilyTable.associate = (models)=>{
+        FamilyTable.hasMany(models.HouseComp, {
+            foreignKey: "FamilyID",
+            as: "houseComponents",
+            onDelete: "cascade",
+
+        })
+    };
 
     return FamilyTable; 
 }

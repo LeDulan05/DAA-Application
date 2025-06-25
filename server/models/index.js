@@ -15,8 +15,13 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 db.FamilyTable = require('./FamilyTable')(sequelize,Sequelize.DataTypes);
+db.HouseComp = require('./HouseComp')(sequelize,Sequelize.DataTypes);
 
-
+Object.keys(db).forEach((modelName) => {
+  if (db[modelName].associate) {
+    db[modelName].associate(db)
+  }
+})
 
 async function initialize() {
   try {
