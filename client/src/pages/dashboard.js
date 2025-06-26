@@ -4,9 +4,9 @@ import './dashboard.css';
 const DashboardOverview = () => {
   // Mock data
   const [families, setFamilies] = useState([
-    { id: "FAM001", name: "Dimakulangan", priorityScore: 7, children: 4, elderly: 1, medicalCondition: true, income: "P2500/month", aidStatus: "Pending" },
+    { id: "FAM001", name: "Dimakulangan", priorityScore: 7, children: 4, elderly: 1, medicalCondition: true, income: "P2500/month", aidStatus: "Unaided" },
     { id: "FAM002", name: "Dimagiba", priorityScore: 3, children: 2, elderly: 2, medicalCondition: false, income: "P10000/month", aidStatus: "Aided" },
-    { id: "FAM003", name: "Batumbakai", priorityScore: 2, children: 1, elderly: 0, medicalCondition: false, income: "P20000/month", aidStatus: "Approved" },
+    { id: "FAM003", name: "Batumbakai", priorityScore: 2, children: 1, elderly: 0, medicalCondition: false, income: "P20000/month", aidStatus: "Aided" },
     // Add more mock data as needed
   ]);
 
@@ -18,6 +18,9 @@ const DashboardOverview = () => {
   const totalFamilies = families.length;
   const totalAidDistributed = 11000;
   const averagePriorityScore = families.reduce((sum, family) => sum + family.priorityScore, 0) / families.length;
+
+  // Get only aided families for priority distribution
+  const aidedFamilies = families.filter(family => family.aidStatus === "Aided");
 
   // Linear search implementation
   const linearSearch = (array, searchTerm) => {
@@ -36,7 +39,7 @@ const DashboardOverview = () => {
     return results;
   };
 
-  // Filter families based on search and filters
+  // Filter families based on search and filters (for the overview table)
   const filteredFamilies = () => {
     // Start with all families or search results
     let result = searchTerm ? linearSearch(families, searchTerm) : [...families];
@@ -84,17 +87,19 @@ const DashboardOverview = () => {
       </div>
 
       <div className="priority-distribution">
-        <h2>Family Priority Distribution</h2>
-        <p>Sorted list of families by priority score</p>
+        <h2>Family Priority Distribution (Aided Families)</h2>
+        <p>Sorted list of aided families by priority score</p>
         <div className="priority-list">
-          {filteredFamilies().map(family => (
-            <div key={family.id} className="priority-item">
-              <span className="family-name">{family.name}</span>
-              <span className={`priority-score ${getPriorityClass(family.priorityScore)}`}>
-                {family.priorityScore}
-              </span>
-            </div>
-          ))}
+          {aidedFamilies
+            .sort((a, b) => b.priorityScore - a.priorityScore)
+            .map(family => (
+              <div key={family.id} className="priority-item">
+                <span className="family-name">{family.name}</span>
+                <span className={`priority-score ${getPriorityClass(family.priorityScore)}`}>
+                  {family.priorityScore}
+                </span>
+              </div>
+            ))}
         </div>
       </div>
 
@@ -122,9 +127,8 @@ const DashboardOverview = () => {
             onChange={(e) => setAidStatusFilter(e.target.value)}
           >
             <option value="all">All Aid Statuses</option>
-            <option value="pending">Pending</option>
+            <option value="unaided">Unaided</option>
             <option value="aided">Aided</option>
-            <option value="approved">Approved</option>
           </select>
         </div>
 
