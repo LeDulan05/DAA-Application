@@ -175,18 +175,15 @@
   display: inline-block;
 }
 
-.aid-status.pending {
-  background-color: #ffeaa7;
-  color: #e67e22;
+.aid-status.unaided {
+  background-color: #c8c8c8;
+  color: #787878;
 }
 .aid-status.aided {
   background-color: #55efc4;
   color: #00b894;
 }
-.aid-status.approved {
-  background-color: #74b9ff;
-  color: #0984e3;
-}
+
 
 @media (max-width: 768px) {
   .dashboard-metrics {
